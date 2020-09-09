@@ -48,11 +48,18 @@ class ContactListPage extends StatelessWidget {
             itemCount: contacts.length,
             itemBuilder: (BuildContext context, int index) {
                 return Container(
-                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                    height: 50,
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(contacts[index].name, style: TextStyle(fontSize: 18))
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    child: Row(
+                        children: <Widget>[
+                            CircleAvatar(
+                                backgroundColor: Colors.grey[350],
+                                child: Text(contacts[index].name[0])
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(left: 16),
+                                child: Text(contacts[index].name, style: TextStyle(fontSize: 18))
+                            )
+                        ]
                     )
                 );
             }
