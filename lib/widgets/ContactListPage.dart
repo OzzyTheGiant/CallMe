@@ -1,42 +1,40 @@
 import 'package:call_me/blocs/BlocProvider.dart';
 import 'package:call_me/blocs/ContactsListBloc.dart';
 import 'package:call_me/models/Contact.dart';
+import 'package:call_me/widgets/EditContactPage.dart';
 import 'package:flutter/material.dart';
 
 class ContactListPage extends StatelessWidget {
-    final String title;
-
-    ContactListPage({Key key, this.title}) : super(key: key);
+    ContactListPage({Key key}) : super(key: key);
 
     @override Widget build(BuildContext context) {
         return StreamBuilder<List<Contact>>(
             stream: BlocProvider.of<ContactsListBloc>(context).contactListStream,
             builder: (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
-                List<Contact> contactList;
-
-                if (snapshot.data == null) {
-                    contactList = [
-                        Contact(name: "John Doe"),
-                        Contact(name: "Jane Smith")
-                    ];
-                } else {
-                    contactList = snapshot.data;
-                }
-
-                return _constructPage(_generateListItems(contactList));
+                return _constructPage(snapshot.data == null ? 
+                    Center(child: Text("No Contacts Added Yet")) :
+                    _generateListItems(snapshot.data),
+                    context
+                );
             }
         );
     }
 
-    Widget _constructPage(Widget contactList) {
+    Widget _constructPage(Widget contactList, BuildContext context) {
+        final pressHandler = () => Navigator.push(context, MaterialPageRoute(
+            builder: (context) => EditContactPage(title: "Add New Contact")
+        ));
+
         return Scaffold(
             appBar: AppBar(
-                title: Text(title, style: TextStyle(color: Colors.black)),
+                title: Text("My Contacts", style: TextStyle(color: Colors.blue[900])),
                 backgroundColor: Colors.white,
+                brightness: Brightness.light,
+                iconTheme: IconThemeData(color: Colors.blue[900]),
             ),
             body: contactList,
             floatingActionButton: FloatingActionButton(
-                onPressed: () => {},
+                onPressed: pressHandler,
                 tooltip: 'Add New Contact',
                 child: Icon(Icons.person_add),
             )

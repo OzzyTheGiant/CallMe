@@ -17,7 +17,7 @@ class CallMeApp extends StatelessWidget {
                     primarySwatch: Colors.blue,
                     visualDensity: VisualDensity.adaptivePlatformDensity,
                 ),
-                home: ContactListPage(title: 'My Contacts'),
+                home: ContactListPage(),
             )
         );
     }
