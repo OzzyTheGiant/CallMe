@@ -24,7 +24,8 @@ class _EditContactPageState extends State<EditContactPage>{
                 iconTheme: IconThemeData(color: Colors.blue[900]),
                 actions: <Widget>[
                     IconButton(
-                        icon: Icon(Icons.save),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        icon: Icon(Icons.save, size: 30),
                         color: Colors.blue[900],
                         onPressed: () => navigateBack(context, whileSaving: true)
                     )
