@@ -4,13 +4,16 @@ import 'package:call_me/models/Contact.dart';
 import 'package:call_me/widgets/EditContactPage.dart';
 import 'package:flutter/material.dart';
 
-class ContactListPage extends StatelessWidget {
+class ContactListPage extends StatelessWidget 
+{
     ContactListPage({Key key}) : super(key: key);
 
-    @override Widget build(BuildContext context) {
+    @override Widget build(BuildContext context) 
+    {
         return StreamBuilder<List<Contact>>(
             stream: BlocProvider.of<ContactsListBloc>(context).contactListStream,
-            builder: (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) 
+            {
                 return _constructPage(snapshot.data == null ? 
                     Center(child: Text("No Contacts Added Yet")) :
                     _generateListItems(snapshot.data),
@@ -20,7 +23,8 @@ class ContactListPage extends StatelessWidget {
         );
     }
 
-    Widget _constructPage(Widget contactList, BuildContext context) {
+    Widget _constructPage(Widget contactList, BuildContext context) 
+    {
         final pressHandler = () => Navigator.push(context, MaterialPageRoute(
             builder: (context) => EditContactPage(title: "Add New Contact")
         ));
@@ -41,7 +45,8 @@ class ContactListPage extends StatelessWidget {
         );
     }
 
-    Widget _generateListItems(List<Contact> contacts) {
+    Widget _generateListItems(List<Contact> contacts) 
+    {
         return ListView.builder(
             itemCount: contacts.length,
             itemBuilder: (BuildContext context, int index) {
