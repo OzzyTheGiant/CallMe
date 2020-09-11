@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:call_me/models/Contact.dart';
+import 'package:call_me/widgets/ContactForm.dart';
 
-class EditContactPage extends StatefulWidget {
+class EditContactPage extends StatelessWidget 
+{
     final String title;
-    final GlobalKey<FormState> _formKey = GlobalKey();
+    final Contact contact;
 
-    EditContactPage({Key key, this.title,}) : super(key: key);
+    EditContactPage({Key key, this.title, this.contact}) : super(key: key);
 
-    @override State createState() => _EditContactPageState();
-}
-
-class _EditContactPageState extends State<EditContactPage>{
-    @override Widget build(BuildContext context) {
-        final navigateBack = (BuildContext context, {bool whileSaving = false}) {
-            if (whileSaving) print("Saved");
-            Navigator.pop(context);
-        };
+    @override Widget build(BuildContext context) 
+    {
+        final contactForm = ContactForm(contact);
 
         return Scaffold(
             appBar: AppBar(
-                title: Text(widget.title, style: TextStyle(color: Colors.blue[900])),
+                title: Text(title, style: TextStyle(color: Colors.blue[900])),
                 backgroundColor: Colors.white,
                 brightness: Brightness.light,
                 iconTheme: IconThemeData(color: Colors.blue[900]),
@@ -27,32 +24,17 @@ class _EditContactPageState extends State<EditContactPage>{
                         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                         icon: Icon(Icons.save, size: 30),
                         color: Colors.blue[900],
-                        onPressed: () => navigateBack(context, whileSaving: true)
+                        onPressed: () => navigateBack(context, whileSaving: true, contact: contact)
                     )
                 ]
             ),
-            body: _createForm()
+            body: contactForm
         );
     }
 
-    Widget _createForm() {
-        return Form(
-            key: widget._formKey,
-            child: Container(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                    children: <Widget>[
-                        TextFormField(decoration: const InputDecoration(hintText: "Name")),
-                        TextFormField(decoration: const InputDecoration(hintText: "Company Name")),
-                        TextFormField(decoration: const InputDecoration(hintText: "Phone Number")),
-                        TextFormField(decoration: const InputDecoration(hintText: "Email Address")),
-                        TextFormField(decoration: const InputDecoration(hintText: "Street Addres")),
-                        TextFormField(decoration: const InputDecoration(hintText: "City")),
-                        TextFormField(decoration: const InputDecoration(hintText: "State")),
-                        TextFormField(decoration: const InputDecoration(hintText: "Zip Code")),
-                    ]
-                )
-            )
-        );
+    void navigateBack(BuildContext context, {bool whileSaving = false, Contact contact}) 
+    {
+        if (whileSaving) print(contact);
+        Navigator.pop(context);
     }
 }

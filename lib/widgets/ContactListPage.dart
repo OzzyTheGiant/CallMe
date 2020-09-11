@@ -25,8 +25,8 @@ class ContactListPage extends StatelessWidget
 
     Widget _constructPage(Widget contactList, BuildContext context) 
     {
-        final pressHandler = () => Navigator.push(context, MaterialPageRoute(
-            builder: (context) => EditContactPage(title: "Add New Contact")
+        final buttonPressHandler = () => Navigator.push(context, MaterialPageRoute(
+            builder: (context) => EditContactPage(contact: Contact(), title: "Add New Contact")
         ));
 
         return Scaffold(
@@ -38,7 +38,7 @@ class ContactListPage extends StatelessWidget
             ),
             body: contactList,
             floatingActionButton: FloatingActionButton(
-                onPressed: pressHandler,
+                onPressed: buttonPressHandler,
                 tooltip: 'Add New Contact',
                 child: Icon(Icons.person_add),
             )
