@@ -1,5 +1,5 @@
 class Contact {
-    int    id;
+    int    id = 0;
     String name;
     String companyName;
     String phoneNumber;
@@ -7,9 +7,14 @@ class Contact {
     String streetAddress;
     String city;
     String state;
-    int    zipCode;
+    String zipCode;
+    
+    bool get hasRequiredFields => 
+        !(name == null || name.isEmpty) &&
+        !(phoneNumber == null || phoneNumber.isEmpty);
 
     Contact({
+        this.id,
         this.name, 
         this.companyName,
         this.phoneNumber,
@@ -20,7 +25,8 @@ class Contact {
         this.zipCode
     });
 
-    Contact.fromMap(Map<String, String> contactData):
+    Contact.fromMap(Map<String, dynamic> contactData):
+        id            = contactData['id'],
         name          = contactData['name'],
         companyName   = contactData['companyName'],
         phoneNumber   = contactData['phone'],
@@ -28,9 +34,9 @@ class Contact {
         streetAddress = contactData['streetAddress'],
         city          = contactData['city'],
         state         = contactData['state'],
-        zipCode       = int.tryParse(contactData['zipCode']);
+        zipCode       = contactData['zipCode'];
 
-    static Map<String, String> toMap(Contact contact) {
+    static Map<String, dynamic> toMap(Contact contact) {
         return {
             "name": contact.name,
             "companyName": contact.companyName,
@@ -39,9 +45,11 @@ class Contact {
             "streetAddress": contact.streetAddress,
             "city": contact.city,
             "state": contact.state,
-            "zipCode": contact.zipCode?.toString() ?? ""
+            "zipCode": contact.zipCode
         };
     }
+
+    static int compare(Contact c1, Contact c2) => c1.name.compareTo(c2.name);
 
     void set(String property, String value) {
         switch(property) {
@@ -52,12 +60,12 @@ class Contact {
             case "streetAddress" : this.streetAddress = value; break;
             case "city"          : this.city = value; break;
             case "state"         : this.state = value; break;
-            case "zipCode"       : this.zipCode = int.tryParse(value); break;
+            case "zipCode"       : this.zipCode = value; break;
             default              : break;
         }
     }
 
     String toString() {
-        return Contact.toMap(this).toString();
+        return toMap(this).toString();
     }
 }
