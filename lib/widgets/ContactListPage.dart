@@ -14,7 +14,7 @@ class ContactListPage extends StatelessWidget
             stream: BlocProvider.of<ContactsListBloc>(context).contactListStream,
             builder: (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) 
             {
-                return _constructPage(snapshot.data == null ? 
+                return _constructPage(snapshot.data == null || snapshot.data.isEmpty ? 
                     Center(child: Text("No Contacts Added Yet")) :
                     _generateListItems(snapshot.data),
                     context
@@ -26,7 +26,7 @@ class ContactListPage extends StatelessWidget
     Widget _constructPage(Widget contactList, BuildContext context) 
     {
         final buttonPressHandler = () => Navigator.push(context, MaterialPageRoute(
-            builder: (context) => EditContactPage(contact: Contact(), title: "Add New Contact")
+            builder: (context) => EditContactPage(contact: Contact(), title: "Add Contact")
         ));
 
         return Scaffold(
