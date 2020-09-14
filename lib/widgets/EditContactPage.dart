@@ -1,5 +1,7 @@
+import 'package:call_me/blocs/ContactsListBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:call_me/models/Contact.dart';
+import 'package:call_me/blocs/BlocProvider.dart';
 import 'package:call_me/widgets/ContactForm.dart';
 
 class EditContactPage extends StatelessWidget 
@@ -13,28 +15,54 @@ class EditContactPage extends StatelessWidget
     {
         final contactForm = ContactForm(contact);
 
+        final actions = <Widget>[
+            Builder(builder: (BuildContext context) {
+                return IconButton(
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    icon: Icon(Icons.save, size: 30),
+                    color: Colors.blue[900],
+                    onPressed: () => _navigateBack(context, whileSaving: true, contact: contact)
+                );
+            })
+        ];
+
+        if (title == "Edit Contact") actions.add(
+            Builder(builder: (BuildContext context) {
+                return IconButton(
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    icon: Icon(Icons.delete, size: 30),
+                    color: Colors.blue[900],
+                    onPressed: () => _navigateBack(context, whileDeleting: true, contact: contact),
+                );
+            })
+        );
+
         return Scaffold(
             appBar: AppBar(
                 title: Text(title, style: TextStyle(color: Colors.blue[900])),
                 backgroundColor: Colors.white,
                 brightness: Brightness.light,
                 iconTheme: IconThemeData(color: Colors.blue[900]),
-                actions: <Widget>[
-                    IconButton(
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                        icon: Icon(Icons.save, size: 30),
-                        color: Colors.blue[900],
-                        onPressed: () => navigateBack(context, whileSaving: true, contact: contact)
-                    )
-                ]
+                actions: actions
             ),
             body: contactForm
         );
     }
 
-    void navigateBack(BuildContext context, {bool whileSaving = false, Contact contact}) 
+    void _navigateBack(BuildContext context, {bool whileSaving = false, bool whileDeleting = false, Contact contact}) async
     {
-        if (whileSaving) print(contact);
+        var bloc = BlocProvider.of<ContactsListBloc>(context);
+
+        if (whileSaving && contact.hasRequiredFields) {
+            await bloc.addContact(contact);
+        } else if (whileDeleting) {
+            await bloc.removeContact(contact.id);
+        } else {
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Please enter name and phone number")
+            )); return;
+        }
+
         Navigator.pop(context);
     }
 }
