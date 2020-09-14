@@ -21,6 +21,8 @@ class _ContactFormState extends State<ContactForm> {
             List<String Function(dynamic)> validators = [];
 
             switch(key) {
+                case "name":
+                case "phone":   validators.add(FormBuilderValidators.required()); break;
                 case "email":   validators.add(FormBuilderValidators.email()); break;
                 case "state":   validators.add(FormBuilderValidators.maxLength(2)); break;
                 case "zipCode": validators.add(FormBuilderValidators.numeric()); break;
