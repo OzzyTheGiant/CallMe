@@ -1,4 +1,7 @@
 {
     "vetur.format.options.tabSize": 4,
-    "workbench.preferredDarkColorTheme": "One Dark Space Gray"
+    "workbench.preferredDarkColorTheme": "One Dark Space Gray",
+    "cSpell.ignoreWords": [
+        "sqflite"
+    ]
 }
