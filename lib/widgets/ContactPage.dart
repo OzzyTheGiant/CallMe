@@ -3,15 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:call_me/models/Contact.dart';
 import 'package:call_me/widgets/EditContactPage.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
     final Contact contact;
     const ContactPage({Key key, this.contact}) : super(key: key);
 
-    @override
-    Widget build(BuildContext context) {
+    @override State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> 
+{
+    Contact get contact => widget.contact;
+
+    void updateSelf(value) async => value ? setState(() {}) : null;
+
+    @override Widget build(BuildContext context) {
         final pressHandler = () => Navigator.push(context, MaterialPageRoute(
             builder: (context) => EditContactPage(contact: contact, title: "Edit Contact")
-        ));
+        )).then(updateSelf);
 
         return Scaffold(
             appBar: AppBar(
@@ -50,12 +58,14 @@ class ContactPage extends StatelessWidget {
                         title: Text(contact.phoneNumber)
                     ),
 
-                    contact.emailAddress != null && contact.emailAddress.isNotEmpty ? Divider() : null,
+                    contact.emailAddress != null && contact.emailAddress.isNotEmpty ? 
+                        Divider() : SizedBox.shrink(), // empty box for null values
                     contact.emailAddress != null && contact.emailAddress.isNotEmpty ?
                     ListTile(
                         leading: Icon(CupertinoIcons.mail_solid, size: 30, color: Colors.blue[400]),
                         title: Text(contact.emailAddress)
-                    ) : null
+                    ) :
+                    SizedBox.shrink() // empty box for null value
                 ]) 
             ),
 
@@ -65,7 +75,8 @@ class ContactPage extends StatelessWidget {
                     ListTile(title: Text("Street Address", style: TextStyle(fontSize: 20))),
                     ListTile(title: Text(contact.streetAddress + "\n" + contact.streetAddressLastLine)),
                 ])
-            ) : null
+            ) : 
+            SizedBox.shrink()
         ]);
     }
 }

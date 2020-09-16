@@ -1,6 +1,6 @@
-import 'package:call_me/blocs/ContactsListBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:call_me/models/Contact.dart';
+import 'package:call_me/blocs/ContactsListBloc.dart';
 import 'package:call_me/blocs/BlocProvider.dart';
 import 'package:call_me/widgets/ContactForm.dart';
 
@@ -68,6 +68,6 @@ class EditContactPage extends StatelessWidget
             )); return;
         }
 
-        Navigator.pop(context);
+        Navigator.pop(context, whileSaving);
     }
 }
