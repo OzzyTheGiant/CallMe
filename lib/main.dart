@@ -7,7 +7,12 @@ void main() {
     runApp(CallMeApp());
 }
 
-class CallMeApp extends StatelessWidget {
+class CallMeApp extends StatelessWidget 
+{
+    final Map<String, Widget Function(BuildContext)> _routes = {
+        "/": (context) => ContactListPage()
+    };
+
     @override Widget build(BuildContext context) {
         var bloc = ContactsListBloc();
     
@@ -22,7 +27,8 @@ class CallMeApp extends StatelessWidget {
                     visualDensity: VisualDensity.adaptivePlatformDensity,
                     cardTheme: CardTheme(elevation: 2)
                 ),
-                home: ContactListPage(),
+                initialRoute: "/",
+                routes: _routes
             )
         );
     }

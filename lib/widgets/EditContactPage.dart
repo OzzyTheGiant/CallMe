@@ -57,6 +57,8 @@ class EditContactPage extends StatelessWidget
             await bloc.addContact(contact);
         } else if (whileDeleting) {
             await bloc.removeContact(contact.id);
+            Navigator.popUntil(context, ModalRoute.withName("/"));
+            return;
         } else {
             Scaffold.of(context).showSnackBar(SnackBar(
                 content: Text("Please enter name and phone number")
