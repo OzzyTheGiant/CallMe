@@ -6,7 +6,8 @@ class ContactDAO extends SQLiteQueryExecutor<Contact>
     @override String get table => "Contacts";
 
     @override Future<List<Contact>> selectAll() async {
-        List<Map<String, dynamic>> rows = await db.query(table, columns: null); // all columns
+        // columns: null - means all columns
+        List<Map<String, dynamic>> rows = await db.query(table, columns: null, orderBy: "name");
         return rows.map((Map<String, dynamic> row) => Contact.fromMap(row)).toList();
     }
 
