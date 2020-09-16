@@ -18,7 +18,7 @@ class Contact {
         !(state == null || state.isEmpty) &&
         !(zipCode == null || zipCode.isEmpty);
 
-    String get streetAddressLastLine => "$city, $state $zipCode";
+    String get streetAddressLastLine => hasStreetAddressLastLine ? "$city, $state $zipCode" : "";
 
     Contact({
         this.id,
