@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:call_me/models/Contact.dart';
 import 'package:call_me/blocs/BlocProvider.dart';
 import 'package:call_me/blocs/ContactsListBloc.dart';
-import 'package:call_me/models/Contact.dart';
+import 'package:call_me/widgets/ContactPage.dart';
 import 'package:call_me/widgets/EditContactPage.dart';
-import 'package:flutter/material.dart';
 
 class ContactListPage extends StatelessWidget 
 {
@@ -49,21 +50,29 @@ class ContactListPage extends StatelessWidget
     {
         return ListView.builder(
             itemCount: contacts.length,
-            itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (BuildContext context, int index) 
+            {
+                final tapHandler = () => Navigator.push(context, MaterialPageRoute(
+                    builder: (BuildContext context) => ContactPage(contact: contacts[index])
+                ));
+
                 return Container(
                     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                    child: Row(
-                        children: <Widget>[
-                            CircleAvatar(
-                                backgroundColor: Colors.grey[350],
-                                child: Text(contacts[index].name[0])
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(left: 16),
-                                child: Text(contacts[index].name, style: TextStyle(fontSize: 18))
-                            )
-                        ]
-                    )
+                    child: InkWell(
+                        onTap: tapHandler,
+                        child: Row(
+                            children: <Widget>[
+                                CircleAvatar(
+                                    backgroundColor: Colors.grey[350],
+                                    child: Text(contacts[index].name[0])
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(left: 16),
+                                    child: Text(contacts[index].name, style: TextStyle(fontSize: 18))
+                                )
+                            ]
+                        )
+                    ) 
                 );
             }
         );

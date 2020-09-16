@@ -13,6 +13,13 @@ class Contact {
         !(name == null || name.isEmpty) &&
         !(phoneNumber == null || phoneNumber.isEmpty);
 
+    bool get hasStreetAddressLastLine =>
+        !(city == null || city.isEmpty) &&
+        !(state == null || state.isEmpty) &&
+        !(zipCode == null || zipCode.isEmpty);
+
+    String get streetAddressLastLine => "$city, $state $zipCode";
+
     Contact({
         this.id,
         this.name, 

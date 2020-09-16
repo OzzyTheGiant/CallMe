@@ -14,7 +14,7 @@ class ContactsListBloc implements Bloc
 
     ContactsListBloc({SQLiteQueryExecutor dao}): _dao = dao ?? ContactDAO();
 
-    Future<ContactsListBloc> init() async {
+    Future<void> init() async {
         await _dao.open();
         await setContactList(_contactList);
     }

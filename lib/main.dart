@@ -20,6 +20,7 @@ class CallMeApp extends StatelessWidget {
                 theme: ThemeData(
                     primarySwatch: Colors.blue,
                     visualDensity: VisualDensity.adaptivePlatformDensity,
+                    cardTheme: CardTheme(elevation: 2)
                 ),
                 home: ContactListPage(),
             )
