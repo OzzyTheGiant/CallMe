@@ -21,7 +21,7 @@ class EditContactPage extends StatelessWidget
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     icon: Icon(Icons.save, size: 30),
                     color: Colors.blue[900],
-                    onPressed: () => _navigateBack(context, whileSaving: true, contact: contact)
+                    onPressed: () => _navigateBack(context, whileSaving: true)
                 );
             })
         ];
@@ -32,7 +32,7 @@ class EditContactPage extends StatelessWidget
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     icon: Icon(Icons.delete, size: 30),
                     color: Colors.blue[900],
-                    onPressed: () => _navigateBack(context, whileDeleting: true, contact: contact),
+                    onPressed: () => _navigateBack(context, whileDeleting: true),
                 );
             })
         );
@@ -49,12 +49,15 @@ class EditContactPage extends StatelessWidget
         );
     }
 
-    void _navigateBack(BuildContext context, {bool whileSaving = false, bool whileDeleting = false, Contact contact}) async
+    void _navigateBack(BuildContext context, {bool whileSaving = false, bool whileDeleting = false}) async
     {
         var bloc = BlocProvider.of<ContactsListBloc>(context);
 
         if (whileSaving && contact.hasRequiredFields) {
-            await bloc.addContact(contact);
+            
+            if (title == "Edit Contact") await bloc.updateContact(contact);
+            else await bloc.addContact(contact);
+
         } else if (whileDeleting) {
             await bloc.removeContact(contact.id);
             Navigator.popUntil(context, ModalRoute.withName("/"));

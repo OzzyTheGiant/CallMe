@@ -31,6 +31,12 @@ class ContactsListBloc implements Bloc
         _controller.sink.add(_contactList);
     }
 
+    Future<void> updateContact(Contact contact) async {
+        await _dao.update(contact);
+        _contactList.sort(Contact.compare);
+        _controller.sink.add(_contactList);
+    }
+
     Future<void> removeContact(int id) async {
         await _dao.delete(id);
         _contactList.removeWhere((contact) => contact.id == id);
