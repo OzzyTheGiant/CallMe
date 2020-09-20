@@ -34,13 +34,13 @@ func restoreContacts(c echo.Context) error {
 }
 
 func backUpContacts(c echo.Context) (err error) {
-	contact := new(Contact)
+	contacts := &[]Contact{}
 
-	if err = c.Bind(contact); err != nil {
+	if err = c.Bind(contacts); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{
 			"message": "No data provided",
 		})
 	}
 
-	return c.JSON(http.StatusOK, contact)
+	return c.JSON(http.StatusOK, contacts)
 }
