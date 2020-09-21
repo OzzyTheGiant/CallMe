@@ -8,23 +8,30 @@ import (
 )
 
 func restoreContacts(c echo.Context) error {
+	id1 := 1
+	name1, company1, phone1, email1, street1, city1, state1, zip1 :=
+		"Ozzy Perez",
+		"DreamCraft",
+		"956-241-0157",
+		"OZLperez11@gmail.com",
+		"918 S Houston Dr",
+		"Harlingen",
+		"TX",
+		"78550"
+
+	id2 := 2
+	var name2 string = "John Doe"
+	var company2 *string = nil
+	var phone2 string = "123-456-7890"
+	var email2 *string = nil
+	var street2 *string = nil
+	var city2 *string = nil
+	var state2 *string = nil
+	var zip2 *string = nil
+
 	contacts := [2]*Contact{
-		&Contact{
-			ID:            1,
-			Name:          "Ozzy Perez",
-			CompanyName:   "DreamCraft",
-			PhoneNumber:   "956-241-0157",
-			EmailAddress:  "OZLperez11@gmail.com",
-			StreetAddress: "918 S Houston Dr",
-			City:          "Harlingen",
-			State:         "TX",
-			ZipCode:       "78550",
-		},
-		&Contact{
-			ID:          2,
-			Name:        "John Doe",
-			PhoneNumber: "1234567890",
-		},
+		&Contact{&id1, &name1, &company1, &phone1, &email1, &street1, &city1, &state1, &zip1},
+		&Contact{&id2, &name2, company2, &phone2, email2, street2, city2, state2, zip2},
 	}
 
 	c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
