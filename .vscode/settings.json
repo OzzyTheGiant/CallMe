@@ -3,5 +3,8 @@
     "workbench.preferredDarkColorTheme": "One Dark Space Gray",
     "cSpell.ignoreWords": [
         "sqflite"
+    ],
+    "cSpell.words": [
+        "gorm"
     ]
 }
