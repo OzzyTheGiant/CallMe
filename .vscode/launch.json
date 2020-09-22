@@ -5,7 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "call_me",
+            "name": "Go - Launch Server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "remotePath": "",
+            "port": 1323,
+            "host": "127.0.0.1",
+            // specify the entire directory that contains go files
+            "program": "${workspaceFolder}/go",
+            "env": {},
+            "args": [],
+        },
+        {
+            "name": "Flutter - Call Me",
             "request": "launch",
             "type": "dart"
         }
